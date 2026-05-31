@@ -47,6 +47,20 @@ app.use(logger);
 app.use(express.json());
 app.use(validarApiKey);
 
+
+
+//iniciar conexion a la base de datos 
+
+try { 
+    await sequelize.authenticate();
+    console.log('Conexion a la base de datos establecida exitosamente');
+    await sequelize.sync();
+} catch (error) {
+    console.error('No se pudo conectar a la base de datos:', error);
+
+}
+
+
 app.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`);
 });

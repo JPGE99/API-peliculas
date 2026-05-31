@@ -1,57 +1,18 @@
-import { Sequelize, DataTypes} from 'sequelize';
+import { Sequelize} from 'sequelize';
 
-const Peliculasdb = new Sequelize( {
-    dialect: 'sqlite',
-    storage: 'peliculasdb.sqlite'
+
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    protocol: 'postgres',
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false 
+        }
+    },
+    logging: false,
+
 });
 
-//paso 2 definir el modelo de datos 
+export default sequelize;
 
-const Peliculas = Peliculasdb.define ( 'Pelicula', {
-
-
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true, 
-        autoIncrement: true,
-    },
-
-    TituloPelicula: {
-        type: DataTypes.STRING,
-        allowNull: false, 
-    },
-
-    Genero: {
-        type: DataTypes.STRING,
-        allowNull: false, 
-
-    },
-
-    Director: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-
-    Año: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-
-    Idioma: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-});
-
-async function inicializacion() {
-    //sincronizar el modelo con la base de datos
-    await Peliculasdb.sync (); 
-
- 
-}
-
-inicializacion();
-
-
-
-export { Peliculas }
