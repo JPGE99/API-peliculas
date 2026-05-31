@@ -1,6 +1,5 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import { Peliculas } from './Peliculasdb.js';
 
 const app = express();
 const port = 3000;
