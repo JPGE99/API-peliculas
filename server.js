@@ -61,9 +61,12 @@ try {
 }
 
 
-app.listen(port, () => {
-    console.log(`Servidor escuchando en el puerto ${port}`);
+app.listen(process.env.PORT | 3001, () => {
+    console.log(`Servidor escuchando en el puerto ${process.env.PORT || 3001}`);
 });
+
+
+
 
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
@@ -174,6 +177,3 @@ app.delete('/api/peliculas/:id', verificarToken, async (req, res) => {
 });
 
 
-app.listen(process.env.PORT | 3001, () => {
-    console.log(`Servidor escuchando en el puerto ${process.env.PORT || 3001}`);
-});
