@@ -178,3 +178,6 @@ app.delete('/api/peliculas/:id', verificarToken, async (req, res) => {
 });
 
 
+app.get('/', async (req, res) => {
+    res.send('Bienvenido a la API de Peliculas');
+});
