@@ -92,7 +92,7 @@ app.listen(process.env.PORT | 3001, () => {
 
 
 app.get('/api/peliculas',  async (req, res) => {
-    const peliculas = await Peliculas.findAll();
+    const peliculas = await sequelize.findAll();
 
     res.status(200).json({
         mensaje: 'Lista de peliculas',
@@ -102,7 +102,7 @@ app.get('/api/peliculas',  async (req, res) => {
 
 app.post('/api/peliculas',  async (req, res) => {
     const body = req.body;
-    const nuevaPelicula = await Peliculas.create(body);
+    const nuevaPelicula = await sequelize.create(body);
 
     res.status(201).json({
         mensaje: 'Pelicula guardada',
@@ -113,7 +113,7 @@ app.post('/api/peliculas',  async (req, res) => {
 app.post('/api/peliculas/bulk',  async (req, res) => {
     try {
         const body = req.body;
-        const nuevaPelicula = await Peliculas.create(body);
+        const nuevaPelicula = await sequelize.create(body);
 
         res.status(201).json({
             mensaje: 'Pelicula Guardada',
@@ -131,7 +131,7 @@ app.put('/api/peliculas/:id',  async (req, res) => {
         const { id } = req.params;
         const body = req.body;
 
-        const pelicula = await Peliculas.findByPk(id);
+        const pelicula = await sequelize.findByPk(id);
 
         if (!pelicula) {
             return res.status(404).json({
@@ -157,7 +157,7 @@ app.delete('/api/peliculas/:id',  async (req, res) => {
     try {
         const { id } = req.params;
 
-        const pelicula = await Peliculas.findByPk(id);
+        const pelicula = await sequelize.findByPk(id);
 
         if (!pelicula) {
             return res.status(404).json({
