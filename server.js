@@ -96,7 +96,7 @@ app.get('/api/peliculas',  async (req, res) => {
 
     res.status(200).json({
         mensaje: 'Lista de peliculas',
-        peliculas
+        sequelize: peliculas
     });
 });
 
