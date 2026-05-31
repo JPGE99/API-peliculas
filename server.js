@@ -12,7 +12,7 @@ const logger = (req, res, next) => {
     next();
 };
 
-const validarApiKey = (req, res, next) => {
+/*const validarApiKey = (req, res, next) => {
     const apiKey = req.query.key?.trim();
 
     if (apiKey === '123456') {
@@ -20,7 +20,7 @@ const validarApiKey = (req, res, next) => {
     } else {
         res.status(403).send('Acceso denegado: clave API invalida');
     }
-};
+}; */
 
 const verificarToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
@@ -46,7 +46,7 @@ const verificarToken = (req, res, next) => {
 
 app.use(logger);
 app.use(express.json());
-app.use(validarApiKey);
+//app.use(validarApiKey);
 
 
 
@@ -69,7 +69,7 @@ app.listen(process.env.PORT | 3001, () => {
 
 
 
-app.post('/api/login', (req, res) => {
+/*  app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
 
     if (username === 'admin' && password === '1234') {
@@ -88,9 +88,10 @@ app.post('/api/login', (req, res) => {
             message: 'Credenciales invalidas'
         });
     }
-});
+});     */
 
-app.get('/api/peliculas', verificarToken, async (req, res) => {
+
+app.get('/api/peliculas',  async (req, res) => {
     const peliculas = await Peliculas.findAll();
 
     res.status(200).json({
@@ -99,7 +100,7 @@ app.get('/api/peliculas', verificarToken, async (req, res) => {
     });
 });
 
-app.post('/api/peliculas', verificarToken, async (req, res) => {
+app.post('/api/peliculas',  async (req, res) => {
     const body = req.body;
     const nuevaPelicula = await Peliculas.create(body);
 
@@ -109,7 +110,7 @@ app.post('/api/peliculas', verificarToken, async (req, res) => {
     });
 });
 
-app.post('/api/peliculas/bulk', verificarToken, async (req, res) => {
+app.post('/api/peliculas/bulk',  async (req, res) => {
     try {
         const body = req.body;
         const nuevaPelicula = await Peliculas.create(body);
@@ -125,7 +126,7 @@ app.post('/api/peliculas/bulk', verificarToken, async (req, res) => {
     }
 });
 
-app.put('/api/peliculas/:id', verificarToken, async (req, res) => {
+app.put('/api/peliculas/:id',  async (req, res) => {
     try {
         const { id } = req.params;
         const body = req.body;
@@ -152,7 +153,7 @@ app.put('/api/peliculas/:id', verificarToken, async (req, res) => {
     }
 });
 
-app.delete('/api/peliculas/:id', verificarToken, async (req, res) => {
+app.delete('/api/peliculas/:id',  async (req, res) => {
     try {
         const { id } = req.params;
 
