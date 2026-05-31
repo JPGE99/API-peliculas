@@ -172,3 +172,8 @@ app.delete('/api/peliculas/:id', verificarToken, async (req, res) => {
         });
     }
 });
+
+
+app.listen(process.env.PORT | 3001, () => {
+    console.log(`Servidor escuchando en el puerto ${process.env.PORT || 3001}`);
+});
